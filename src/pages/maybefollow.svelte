@@ -1,10 +1,10 @@
 <script lang="ts">
 	import ProgressBar from "@okrad/svelte-progressbar"
 	import ArtistToFollow from "../ArtistToFollow.svelte"
-	import Notification from "../Notification.svelte"
 
 	import Heading from "../Heading.svelte"
 	import { spotify, library, followedArtists } from "../stores"
+	import { showNotification } from "../utils"
 	import type {
 		Paginated,
 		SavedTrack,
@@ -18,8 +18,6 @@
 
 	let totalSavedTracks = 0
 	let artistsToFollow: ArtistWithSavedTracks[] = []
-	let showNotification = false
-	let notificationMessage = ""
 
 	$: artistsToFollow.sort(
 		(a, b) => -(a.savedTracks.length - b.savedTracks.length)
@@ -98,8 +96,9 @@
 		}
 
 		// Show notification when loading is finished
-		notificationMessage = `Found ${artistsToFollow.length} artists you might want to follow`
-		showNotification = true
+		showNotification(
+			`Found ${artistsToFollow.length} artists you might want to follow`
+		)
 
 		return artistsToFollow
 	}
@@ -135,8 +134,6 @@
 	Sorry. {error.message}. Try reloading the page or logging out and logging back
 	in.
 {/await}
-
-<Notification message={notificationMessage} bind:visible={showNotification} />
 
 <style>
 	ol {

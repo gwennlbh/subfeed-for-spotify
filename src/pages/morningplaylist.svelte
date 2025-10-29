@@ -3,12 +3,10 @@
 	import chunk from "lodash.chunk"
 	import type { AudioFeatures, SavedTrack } from "../types"
 	import ProgressBar from "@okrad/svelte-progressbar"
-	import Notification from "../Notification.svelte"
 	import Heading from "../Heading.svelte"
+	import { showNotification } from "../utils"
 
 	let progress: number = 0
-	let showNotification = false
-	let notificationMessage = ""
 
 	async function loadAnalyses(): Promise<void> {
 		console.log($library)
@@ -26,10 +24,9 @@
 		}
 
 		// Show notification when loading is finished
-		notificationMessage = `Loaded analyses for ${
-			Object.keys($analyses).length
-		} tracks`
-		showNotification = true
+		showNotification(
+			`Loaded analyses for ${Object.keys($analyses).length} tracks`
+		)
 	}
 </script>
 
@@ -50,5 +47,3 @@
 		{JSON.stringify($analyses, null, 2)}
 	</pre>
 {/await}
-
-<Notification message={notificationMessage} bind:visible={showNotification} />
