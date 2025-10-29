@@ -2,6 +2,7 @@
 	import Heading from "../Heading.svelte"
 	import Release from "../Release.svelte"
 	import ProgressBar from "@okrad/svelte-progressbar"
+	import Notification from "../Notification.svelte"
 	import { followedArtists, spotify } from "../stores"
 	import type {
 		CursorPaginated,
@@ -13,6 +14,8 @@
 	let totalArtists = 0
 	let releases: SimplifiedAlbum[] = []
 	let loadedStuff: string[] = []
+	let showNotification = false
+	let notificationMessage = ""
 
 	function addLoadedStuff(...stuff: string[]) {
 		loadedStuff = [
@@ -75,6 +78,11 @@
 			)
 			.reverse()
 			.slice(0, 50)
+		
+		// Show notification when loading is finished
+		notificationMessage = `Loaded ${releases.length} releases from ${totalArtists} artists`
+		showNotification = true
+		
 		return releases
 	}
 </script>
@@ -112,6 +120,8 @@
 		back in.
 	</p>
 {/await}
+
+<Notification message={notificationMessage} bind:visible={showNotification} />
 
 <style>
 	li {
