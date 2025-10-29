@@ -24,9 +24,11 @@
 			analysesChunk.forEach(analysis => ($analyses[analysis.id] = analysis))
 			progress = Object.keys($analyses).length / $library.length
 		}
-		
+
 		// Show notification when loading is finished
-		notificationMessage = `Loaded analyses for ${Object.keys($analyses).length} tracks`
+		notificationMessage = `Loaded analyses for ${
+			Object.keys($analyses).length
+		} tracks`
 		showNotification = true
 	}
 </script>

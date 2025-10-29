@@ -78,11 +78,11 @@
 			)
 			.reverse()
 			.slice(0, 50)
-		
+
 		// Show notification when loading is finished
 		notificationMessage = `Loaded ${releases.length} releases from ${totalArtists} artists`
 		showNotification = true
-		
+
 		return releases
 	}
 </script>
@@ -101,8 +101,9 @@
 			}}
 		/>
 		<p>Loading...</p>
-		<pre
-			id="loaded-stuff">{loadedStuff.map(l => `Loaded ${l}`).join("\n")}</pre>
+		<pre id="loaded-stuff">{loadedStuff
+				.map(l => `Loaded ${l}`)
+				.join("\n")}</pre>
 	</div>
 {:then releases}
 	<ol>
