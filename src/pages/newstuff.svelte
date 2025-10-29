@@ -3,6 +3,7 @@
 	import Release from "../Release.svelte"
 	import ProgressBar from "@okrad/svelte-progressbar"
 	import { followedArtists, spotify } from "../stores"
+	import { showNotification } from "../utils"
 	import type {
 		CursorPaginated,
 		SimplifiedAlbum,
@@ -75,6 +76,12 @@
 			)
 			.reverse()
 			.slice(0, 50)
+
+		// Show notification when loading is finished
+		showNotification(
+			`Loaded ${releases.length} releases from ${totalArtists} artists`
+		)
+
 		return releases
 	}
 </script>
@@ -93,8 +100,9 @@
 			}}
 		/>
 		<p>Loading...</p>
-		<pre
-			id="loaded-stuff">{loadedStuff.map(l => `Loaded ${l}`).join("\n")}</pre>
+		<pre id="loaded-stuff">{loadedStuff
+				.map(l => `Loaded ${l}`)
+				.join("\n")}</pre>
 	</div>
 {:then releases}
 	<ol>

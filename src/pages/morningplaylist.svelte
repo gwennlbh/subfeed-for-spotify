@@ -4,6 +4,7 @@
 	import type { AudioFeatures, SavedTrack } from "../types"
 	import ProgressBar from "@okrad/svelte-progressbar"
 	import Heading from "../Heading.svelte"
+	import { showNotification } from "../utils"
 
 	let progress: number = 0
 
@@ -21,6 +22,11 @@
 			analysesChunk.forEach(analysis => ($analyses[analysis.id] = analysis))
 			progress = Object.keys($analyses).length / $library.length
 		}
+
+		// Show notification when loading is finished
+		showNotification(
+			`Loaded analyses for ${Object.keys($analyses).length} tracks`
+		)
 	}
 </script>
 

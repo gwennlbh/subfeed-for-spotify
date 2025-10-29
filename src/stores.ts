@@ -51,4 +51,6 @@ export let followedArtists: Writable<SimplifiedArtist[]> = writable([])
 
 export let library: Writable<SavedTrack[]> = writable([])
 
-export let analyses: Writable<{[trackID: string]: AudioFeatures}> = writable({})
+export let analyses: Writable<{ [trackID: string]: AudioFeatures }> = writable(
+	{}
+)

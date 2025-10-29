@@ -4,6 +4,7 @@
 
 	import Heading from "../Heading.svelte"
 	import { spotify, library, followedArtists } from "../stores"
+	import { showNotification } from "../utils"
 	import type {
 		Paginated,
 		SavedTrack,
@@ -93,6 +94,11 @@
 				JSON.stringify(artistsToFollow)
 			)
 		}
+
+		// Show notification when loading is finished
+		showNotification(
+			`Found ${artistsToFollow.length} artists you might want to follow`
+		)
 
 		return artistsToFollow
 	}
